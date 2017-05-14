@@ -1,0 +1,61 @@
+<% content_for(:title, "List | To do")%>
+
+<h1><%= @list.name %></h1>
+<button><%= link_to "Edit List", edit_list_path(@list) %></button>
+  <% if @list.tasks.any? %>
+    <h4>Ten Most Recent Tasks:</h4>
+    <ul>
+        <% @tasks.ten_most_recent.each do |task| %>
+          <li>
+                <%= task.description %> |
+                <%= link_to "Edit", edit_list_task_path(@list, task) %> |
+                <%= link_to "Delete", list_task_path(@list, task),
+                                         :data => {:confirm => "Are you sure?",
+                                                        :method => "delete"} %>
+          </li>
+      <% end %>
+    </ul>
+    <h4>Tasks created today:</h4>
+    <ul>
+        <% @tasks.today.each do |task| %>
+          <li>
+                <%= task.description %> |
+                <%= link_to "Edit", edit_list_task_path(@list, task) %> |
+                <%= link_to "Delete", list_task_path(@list, task),
+                                         :data => {:confirm => "Are you sure?",
+                                                        :method => "delete"} %>
+          </li>
+      <% end %>
+    </ul>
+    <h4>Incomplete Tasks:</h4>
+    <ul>
+        <% @tasks.not_done.each do |task| %>
+          <li>
+                <%= task.description %> |
+                <%= link_to "Edit", edit_list_task_path(@list, task) %> |
+                <%= link_to "Delete", list_task_path(@list, task),
+                                         :data => {:confirm => "Are you sure?",
+                                                        :method => "delete"} %>
+          </li>
+      <% end %>
+    </ul>
+    <h4>Completed Tasks:</h4>
+    <ul>
+      <% @tasks.done.each do |task| %>
+        <li>
+          <%= task.description %> |
+          <%= link_to "Edit", edit_list_task_path(@list, task) %> |
+          <%= link_to "Delete", list_task_path(@list, task),
+                                   :data => {:confirm => "Are you sure?",
+                                                  :method => "delete"} %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>There are no tasks yet!</p>
+  <% end %>
+  <p><%= link_to "New Task", new_list_task_path(@list), id:"new_link", remote: true %></p>
+  <p><%= link_to "Delete List", list_path(@list),
+                          :data => {:confirm => "Are you sure?",
+                                         :method => "delete"} %></p>
+  <p><%= link_to "Return to lists", lists_path %></p>
