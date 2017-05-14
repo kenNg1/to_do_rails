@@ -36,7 +36,7 @@ class TasksController < ApplicationController
   def mark_done
     #todo mark selected tasks as complete_tasks
     binding.pry
-    
+
     redirect_to :back
   end
 
@@ -44,6 +44,11 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
     redirect_to :back
+  end
+
+  def complete
+    # selected tasks as complete_tasks
+    redirect_to tasks_path
   end
 
   private
