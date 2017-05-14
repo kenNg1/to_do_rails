@@ -48,7 +48,9 @@ class TasksController < ApplicationController
 
   def complete
     # selected tasks as complete_tasks
-    redirect_to tasks_path
+    Task.where(id: params[:task_ids]).update_all(done: 'true')
+    list_id = Task.find(params[:task_ids].first).list_id
+    redirect_to list_path(list_id)
   end
 
   private
