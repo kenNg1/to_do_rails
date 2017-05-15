@@ -1,5 +1,5 @@
 $(function(){
-  $('.edit_task input[type=checkbox]').click(function(){
+  $('.edit_task').click(function(){
     alert('clicked!');
   });
 });
